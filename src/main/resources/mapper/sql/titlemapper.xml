@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<mapper namespace="com.title">
+
+    <!-- user select by userid-->
+    <select id="selectUser" resultType="com.title.DTO.userDTO" parameterType="String">
+        SELECT *
+        from user
+        where userId = #{userId}
+    </select>
+
+    <!-- select movie by user like-->
+    <select id="selectMovie" resultType="com.title.DTO.titleDTO" parameterType="String">
+        SELECT movieTitle, ratingScore
+        from user
+                 natural join movie
+                 natural join ratings
+        where userId = #{userId}
+        order by ratingScore desc;
+    </select>
+
+
+</mapper>
